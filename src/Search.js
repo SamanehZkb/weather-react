@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
+import CurrentDate from "./CurrentDate";
 import "./styles.css";
 
-export default function Search() {
+export default function Search(props) {
   let [city, setCity] = useState("");
   let [text, setText] = useState("");
+
   function handleSubmit(event) {
     event.preventDefault();
     let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=a969311cfcbb4a83dfad2cf7478397f9&units=metric`;
@@ -13,8 +15,9 @@ export default function Search() {
     function showWeather(response) {
       let icon = response.data.weather[0].icon;
       let skyimageURL = `https://openweathermap.org/img/wn/${icon}@2x.png`;
-      console.log(skyimageURL);
-      console.log(response);
+      let timestamp = response.data.dt * 1000;
+      let date = new Date(timestamp);
+      console.log({ date });
       setText(
         <div className="text">
           <div className="card border border-dark border-opacity-25 shadow-sm p-2 mb-1 bg-body rounded Title bg-transparent">
@@ -22,13 +25,13 @@ export default function Search() {
           </div>
           <div className="card border border-dark Today-weather bg-transparent border-opacity-25 shadow-sm bg-body rounded">
             <div className="card-body p-1">
-              <div className="row">
-                <div className="col-sm-4">
+              <div className="row m-1">
+                <div className="col-sm-3">
                   <span className="sky">
                     <img
                       className="skyimage"
                       src={skyimageURL}
-                      alt=""
+                      alt={response.data.weather[0].description}
                       width="100px"
                     />
                     <div className="skymood">
@@ -57,6 +60,9 @@ export default function Search() {
                     </div>
                   </div>
                 </div>
+                <div className="col-sm-3 date">
+                  <CurrentDate date={date} />
+                </div>
               </div>
             </div>
           </div>
@@ -67,6 +73,7 @@ export default function Search() {
   function changeCity(event) {
     setCity(event.target.value);
   }
+
   return (
     <div className="weather">
       <div className="col">
@@ -80,7 +87,7 @@ export default function Search() {
                     placeholder="Enter a city"
                     autofocus="on"
                     autocomplete="off"
-                    className="form-control shadow-sm form-control-sm"
+                    className="form-control shadow-sm form-control"
                     onChange={changeCity}
                   />
                 </div>
