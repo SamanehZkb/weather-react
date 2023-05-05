@@ -119,6 +119,12 @@ export default function Search() {
   } else {
     let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=a969311cfcbb4a83dfad2cf7478397f9&units=metric`;
     axios.get(apiURL).then(showWeather);
-    return <LoadingIcons.BallTriangle />;
+    return (
+      <LoadingIcons.BallTriangle
+        fill="transparent"
+        stroke="#66D3F1"
+        Height="5em"
+      />
+    );
   }
 }
