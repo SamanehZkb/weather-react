@@ -19,8 +19,6 @@ export default function Search() {
     setCity(event.target.value);
   }
   function showWeather(response) {
-    let skyimageURL = response.data.condition.icon_url;
-
     console.log(response);
     setText(<ShowWeather response={response} />);
     setReady(true);

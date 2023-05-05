@@ -51,7 +51,7 @@ export default function ShowWeather(props) {
               <CurrentDate date={date} />
             </div>
           </div>
-          <PredictWeather />
+          <PredictWeather response={props.response} />
         </div>
       </div>
     </div>
