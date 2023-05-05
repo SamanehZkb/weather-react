@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./styles.css";
-export default function ShowTemp(props) {
+export default function ShowUnit(props) {
   let [unit, setUnit] = useState("celsius");
 
   function showfahrenheit(event) {
