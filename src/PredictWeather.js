@@ -23,17 +23,19 @@ export default function PredictWeather(props) {
         {forecast.map(function (dailyforecast, index) {
           if (index < 5) {
             return (
-              <div class="col" key="index">
+              <div class="col" key={index}>
                 <Dailyforecast data={dailyforecast} />{" "}
               </div>
             );
+          } else {
+            return null;
           }
         })}
       </div>
     );
   } else {
     let apiURL = `https://api.shecodes.io/weather/v1/forecast?query=${props.response.data.city}&key=o6e634db6050ata4f8132e3ce4047d3a`;
-    axios.get(apiURL).then(showForecast());
+    axios.get(apiURL).then(showForecast);
     return (
       <div className="loading">
         <LoadingIcons.BallTriangle

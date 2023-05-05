@@ -32,7 +32,7 @@ export default function Search() {
             <div className="card-body">
               <form className="search-form" onSubmit={handleSubmit}>
                 <div className="row g-1">
-                  <div className="col-8">
+                  <div className="col-9">
                     <input
                       type="search"
                       placeholder="Enter a city"
@@ -42,18 +42,11 @@ export default function Search() {
                       onChange={changeCity}
                     />
                   </div>
-                  <div className="col-2">
+                  <div className="col-3">
                     <input
                       type="submit"
                       value="search"
                       className="form-control btn btn-primary shadow-sm form-control-sm"
-                    />
-                  </div>
-                  <div className="col-2">
-                    <input
-                      type="click"
-                      value="Current"
-                      className="form-control btn bg-success text-white shadow-sm form-control-sm"
                     />
                   </div>
                 </div>
