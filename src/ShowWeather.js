@@ -2,14 +2,15 @@ import React from "react";
 import CurrentDate from "./CurrentDate";
 import PredictWeather from "./PredictWeather";
 import ShowUnit from "./ShowUnit";
+import "./styles.css";
 
 export default function ShowWeather(props) {
   let date = new Date(props.response.data.time * 1000);
   return (
     <div className="text">
       <div className="card border border-dark border-opacity-25 shadow-sm p-2 mb-1 bg-body rounded Title bg-transparent">
-        <div className="card-body">
-          {props.response.data.city.toUpperCase()}
+        <div className="card-body text-capitalize">
+          {props.response.data.city}
         </div>
       </div>
       <div className="card border border-dark Today-weather bg-transparent border-opacity-25 shadow-sm bg-body rounded">

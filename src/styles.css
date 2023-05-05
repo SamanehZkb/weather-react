@@ -81,12 +81,12 @@ h1 {
   padding-right: 20px;
   text-align: center;
   font-size: 20px;
-  font-weight: 300;
+  font-weight: 600;
 }
 .sup {
   font-size: 15px;
   top: -35px;
-  left: 15px;
+  left: 10px;
 }
 .code {
   display: block;
