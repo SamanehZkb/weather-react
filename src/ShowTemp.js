@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-
+import "./styles.css";
 export default function ShowTemp(props) {
   let [unit, setUnit] = useState("celsius");
-  function showfahrenheit() {
+
+  function showfahrenheit(event) {
+    event.preventDefault();
     setUnit("Fahrenheit");
   }
-  function showcelsius() {
+  function showcelsius(event) {
+    event.preventDefault();
     setUnit("celsius");
   }
   if (unit === "celsius") {
@@ -14,8 +17,9 @@ export default function ShowTemp(props) {
         <span>{props.data}</span>
         <sup className="sup">
           <span>
+            {" "}
             °C |{" "}
-            <a href="/" onClick={showfahrenheit()}>
+            <a href="/" onClick={showfahrenheit}>
               °F
             </a>
           </span>
@@ -25,11 +29,12 @@ export default function ShowTemp(props) {
   } else {
     return (
       <div className="degree">
-        <span>{(props.data * 9) / 5 + 32}</span>
+        <span>{Math.round((props.data * 9) / 5 + 32)}</span>
         <sup className="sup">
           <span>
-            <a href="/" onClick={showcelsius()}>
-              °C
+            <a href="/" onClick={showcelsius}>
+              {" "}
+              °C{" "}
             </a>
             | °F
           </span>
