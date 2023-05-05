@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import CurrentDate from "./CurrentDate";
 import LoadingIcons from "react-loading-icons";
+import ShowTemp from "./ShowTemp";
 import "./styles.css";
 
 export default function Search() {
@@ -11,18 +12,16 @@ export default function Search() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=a969311cfcbb4a83dfad2cf7478397f9&units=metric`;
+    let apiURL = `https://api.shecodes.io/weather/v1/current?query=${city}&key=o6e634db6050ata4f8132e3ce4047d3a&units=metric`;
     axios.get(apiURL).then(showWeather);
   }
   function changeCity(event) {
     setCity(event.target.value);
   }
   function showWeather(response) {
-    let icon = response.data.weather[0].icon;
-    let skyimageURL = `https://openweathermap.org/img/wn/${icon}@2x.png`;
-    let timestamp = response.data.dt * 1000;
-    let date = new Date(timestamp);
-
+    let skyimageURL = response.data.condition.icon_url;
+    let date = new Date(response.data.time * 1000);
+    console.log(response);
     setText(
       <div className="text">
         <div className="card border border-dark border-opacity-25 shadow-sm p-2 mb-1 bg-body rounded Title bg-transparent">
@@ -36,28 +35,26 @@ export default function Search() {
                   <img
                     className="skyimage"
                     src={skyimageURL}
-                    alt={response.data.weather[0].description}
+                    alt={response.data.condition.description}
                     width="100px"
                   />
                   <div className="skymood">
-                    {response.data.weather[0].description}
+                    {response.data.condition.description}
                   </div>
                 </span>
               </div>
               <div className="col">
                 <div className="parent">
-                  <div className="degree">
-                    <span>{Math.round(response.data.main.temp)}</span>
-                    <sup className="sup">
-                      <a href="/" className="active">
-                        °C
-                      </a>
-                      |<a href="/">°F</a>
-                    </sup>
-                  </div>
+                  <ShowTemp
+                    data={Math.round(response.data.temperature.current)}
+                  />{" "}
                   <div>
+                    <div className="feels">
+                      Feels like:{" "}
+                      {Math.round(response.data.temperature.feels_like)} °C
+                    </div>
                     <div className="humidity">
-                      Humidity: {response.data.main.humidity}
+                      Humidity: {response.data.temperature.humidity}
                     </div>
                     <div className="wind">
                       Wind:{Math.round(response.data.wind.speed)} km/h
@@ -117,7 +114,7 @@ export default function Search() {
       </div>
     );
   } else {
-    let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=a969311cfcbb4a83dfad2cf7478397f9&units=metric`;
+    let apiURL = `https://api.shecodes.io/weather/v1/current?query=${city}&key=o6e634db6050ata4f8132e3ce4047d3a&units=metric`;
     axios.get(apiURL).then(showWeather);
     return (
       <div className="loading">
@@ -126,6 +123,9 @@ export default function Search() {
           stroke="#66D3F1"
           Height="5em"
         />
+        <br />
+        <br />
+        <div> Loading… </div>
         <br />
       </div>
     );
